@@ -1,0 +1,158 @@
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.22rem 0.5rem;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 1;
+  background: #f9fafb;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+.wishBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  color: #9ca3af;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 2;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.wishBtn:hover {
+  transform: scale(1.1);
+}
+
+.wishBtn.wished {
+  color: var(--red);
+}
+
+/* Only "Add to Cart" bar slides up on hover */
+.addToCartOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.6rem;
+  background: rgba(255,255,255,0.97);
+  border-top: 1px solid var(--border);
+  transform: translateY(100%);
+  transition: transform 0.22s ease;
+}
+
+.card:hover .addToCartOverlay {
+  transform: translateY(0);
+}
+
+.addBtn {
+  width: 100%;
+  background: #fff;
+  color: var(--dark);
+  border: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.addBtn:hover {
+  background: var(--dark);
+  color: #fff;
+  border-color: var(--dark);
+}
+
+.info {
+  padding: 0.85rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.category {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.originalPrice {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: line-through;
+}

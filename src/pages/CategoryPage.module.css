@@ -1,0 +1,81 @@
+.hero {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 60%, #a855f7 100%);
+  padding: 2.5rem 2rem 3rem;
+}
+
+.heroInner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.backBtn {
+  background: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  transition: color 0.15s;
+  padding: 0;
+}
+
+.backBtn:hover {
+  color: #fff;
+}
+
+.heroInner h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.heroInner p {
+  color: rgba(255,255,255,0.82);
+  font-size: 0.95rem;
+}
+
+.grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--red);
+  padding: 3rem 0;
+}
+
+.notFound {
+  max-width: 400px;
+  margin: 5rem auto;
+  text-align: center;
+  color: var(--muted);
+}

@@ -1,0 +1,248 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.links {
+  display: flex;
+  list-style: none;
+  gap: 1.75rem;
+  flex: 1;
+}
+
+.links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dark);
+  transition: color 0.2s;
+}
+
+.links a:hover,
+.links a.active {
+  color: var(--primary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  width: 220px;
+  color: var(--muted);
+}
+
+.searchBar input {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: var(--dark);
+  width: 100%;
+}
+
+.searchBar input::placeholder {
+  color: var(--muted);
+}
+
+.iconBtn {
+  background: none;
+  color: var(--dark);
+  padding: 0.4rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.iconBtn:hover {
+  background: #f3f4f6;
+}
+
+.cartBtn {
+  background: none;
+  color: var(--dark);
+  padding: 0.4rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.cartBtn:hover {
+  background: #f3f4f6;
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
+
+/* Auth buttons */
+.authBtns {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loginBtn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark);
+  padding: 0.45rem 0.875rem;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.loginBtn:hover {
+  background: #f3f4f6;
+}
+
+.signupBtn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  padding: 0.45rem 0.875rem;
+  border-radius: 8px;
+  transition: opacity 0.15s;
+}
+
+.signupBtn:hover {
+  opacity: 0.88;
+}
+
+/* User avatar + dropdown */
+.userMenu {
+  position: relative;
+}
+
+.avatarBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarInitial {
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  min-width: 200px;
+  z-index: 200;
+  overflow: hidden;
+  animation: dropIn 0.15s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownHeader {
+  padding: 0.9rem 1rem;
+  background: #f9fafb;
+}
+
+.dropdownName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 0.15rem;
+}
+
+.dropdownEmail {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--border);
+}
+
+.dropdownItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  background: none;
+  font-size: 0.875rem;
+  color: var(--dark);
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.dropdownItem:hover {
+  background: #f3f4f6;
+}
+
+.logoutItem {
+  color: #ef4444;
+}
+
+.logoutItem:hover {
+  background: #fef2f2;
+}
