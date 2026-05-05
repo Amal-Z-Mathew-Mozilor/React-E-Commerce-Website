@@ -6,7 +6,7 @@ A fully functional e-commerce web application built with React. Browse fashion p
 
 ## 🌐 Live Demo
 
-> Deploy to Netlify or Vercel and paste your URL here.
+> https://react-e-commerce-website-sigma.vercel.app/
 
 ---
 

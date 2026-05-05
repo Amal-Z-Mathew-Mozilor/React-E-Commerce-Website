@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart, cartKey } from '../context/CartContext'
+
+import { useCart } from '../context/CartContext'
+
 import { useAuth } from '../context/AuthContext'
 import styles from './Checkout.module.css'
 
@@ -222,7 +225,11 @@ export default function Checkout() {
             <h2>Order Summary</h2>
             <div className={styles.summaryItems}>
               {cartItems.map(item => (
+<<<<<<< HEAD
                 <div key={cartKey(item)} className={styles.summaryItem}>
+=======
+                <div key={item.id} className={styles.summaryItem}>
+>>>>>>> 82863db21fd6ccabcb9330a0c82a939c366b8d52
                   <img src={item.image} alt={item.title} />
                   <div className={styles.summaryItemInfo}>
                     <p>{item.title}</p>
