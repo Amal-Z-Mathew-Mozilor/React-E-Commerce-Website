@@ -76,7 +76,7 @@ export default function CartDrawer() {
                 <span>${subtotal.toFixed(2)}</span>
               </div>
             </div>
-            <button className={styles.checkoutBtn} onClick={() => { setIsCartOpen(false); navigate('/cart') }}>Proceed to Checkout</button>
+            <button className={styles.checkoutBtn} onClick={() => { setIsCartOpen(false); navigate('/checkout') }}>Proceed to Checkout</button>
             <button className={styles.continueBtn} onClick={() => setIsCartOpen(false)}>
               Continue Shopping
             </button>

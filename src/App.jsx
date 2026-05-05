@@ -10,6 +10,8 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ProductDetail from './pages/ProductDetail'
 
+import Checkout from './pages/Checkout'
+
 const AUTH_ROUTES = ['/login', '/signup']
 
 export default function App() {
@@ -26,6 +28,7 @@ export default function App() {
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

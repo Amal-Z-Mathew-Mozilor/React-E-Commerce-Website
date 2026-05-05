@@ -34,6 +34,10 @@ export function CartProvider({ children }) {
     }
   }, [])
 
+  const clearCart = useCallback(() => {
+    setCartItems([])
+  }, [])
+
   const totalItems = cartItems.reduce((sum, i) => sum + i.quantity, 0)
   const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0)
 
@@ -43,6 +47,7 @@ export function CartProvider({ children }) {
       addToCart,
       removeFromCart,
       updateQuantity,
+      clearCart,
       totalItems,
       subtotal,
       isCartOpen,

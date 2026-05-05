@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import styles from './Cart.module.css'
 
 export default function Cart() {
   const { cartItems, removeFromCart, updateQuantity, subtotal } = useCart()
+  const navigate = useNavigate()
 
   if (cartItems.length === 0) {
     return (
@@ -81,7 +82,7 @@ export default function Cart() {
             <span>Total</span>
             <span>${(subtotal * 1.08).toFixed(2)}</span>
           </div>
-          <button className={styles.checkoutBtn}>Proceed to Checkout</button>
+          <button className={styles.checkoutBtn} onClick={() => navigate('/checkout')}>Proceed to Checkout</button>
           <Link to="/shop" className={styles.continueBtn}>Continue Shopping</Link>
         </div>
       </div>
