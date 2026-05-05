@@ -5,22 +5,11 @@ import { useProducts } from '../hooks/useProducts'
 import styles from './CategoryPage.module.css'
 
 const CATEGORY_CONFIG = {
-  men: {
-    label: "Men's Fashion",
-    apiCategory: "men's clothing",
-  },
-  women: {
-    label: "Women's Fashion",
-    apiCategory: "women's clothing",
-  },
-  accessories: {
-    label: 'Accessories',
-    apiCategory: 'jewelery',
-  },
-  shoes: {
-    label: 'Shoes',
-    apiCategory: 'shoes',
-  },
+  men: { label: "Men's Fashion", apiCategory: "men's clothing" },
+  women: { label: "Women's Fashion", apiCategory: "women's clothing" },
+  accessories: { label: 'Accessories', apiCategory: 'jewelery' },
+  shoes: { label: 'Shoes', apiCategory: 'shoes' },
+  electronics: { label: 'Electronics', apiCategory: 'electronics' },
 }
 
 export default function CategoryPage() {

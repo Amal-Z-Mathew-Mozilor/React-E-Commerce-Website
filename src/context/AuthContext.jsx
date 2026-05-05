@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react'
+import { createContext, useContext, useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 const AuthContext = createContext(null)
@@ -22,6 +22,11 @@ function getStoredSession() {
   }
 }
 
+// Fix 4: strip password before writing — only id, name, email stored
+function toSession(user) {
+  return { id: user.id, name: user.name, email: user.email }
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(getStoredSession)
 
@@ -30,10 +35,22 @@ export function AuthProvider({ children }) {
     if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
       return { success: false, error: 'An account with this email already exists.' }
     }
-    const newUser = { id: Date.now(), name, email, password, createdAt: new Date().toISOString() }
-    localStorage.setItem(USERS_KEY, JSON.stringify([...users, newUser]))
-    const session = { id: newUser.id, name: newUser.name, email: newUser.email }
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+    // Fix 4: store a hashed stand-in (btoa) — never plain-text
+    const newUser = {
+      id: Date.now(),
+      name,
+      email,
+      // btoa is not real security but removes plain-text from storage
+      _h: btoa(password),
+      createdAt: new Date().toISOString(),
+    }
+    try {
+      localStorage.setItem(USERS_KEY, JSON.stringify([...users, newUser]))
+    } catch { /* storage full */ }
+    const session = toSession(newUser)
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+    } catch { /* storage full */ }
     setUser(session)
     return { success: true }
   }, [])
@@ -41,24 +58,32 @@ export function AuthProvider({ children }) {
   const login = useCallback(({ email, password }) => {
     const users = getStoredUsers()
     const found = users.find(
-      u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+      u => u.email.toLowerCase() === email.toLowerCase() && u._h === btoa(password)
     )
     if (!found) {
       return { success: false, error: 'Invalid email or password.' }
     }
-    const session = { id: found.id, name: found.name, email: found.email }
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+    const session = toSession(found)
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+    } catch { /* storage full */ }
     setUser(session)
     return { success: true }
   }, [])
 
   const logout = useCallback(() => {
-    localStorage.removeItem(SESSION_KEY)
+    try { localStorage.removeItem(SESSION_KEY) } catch { /* ignore */ }
     setUser(null)
   }, [])
 
+  // Fix 8: useMemo on value so consumers don't re-render unnecessarily
+  const value = useMemo(
+    () => ({ user, login, signup, logout }),
+    [user, login, signup, logout]
+  )
+
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   )

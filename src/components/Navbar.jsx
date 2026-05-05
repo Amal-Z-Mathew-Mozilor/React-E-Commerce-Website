@@ -9,6 +9,7 @@ export default function Navbar() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const menuRef = useRef(null)
 
   useEffect(() => {
@@ -27,6 +28,15 @@ export default function Navbar() {
     navigate('/')
   }
 
+  // Fix 3: wire search to /shop?q=...
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      navigate(`/shop?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery('')
+    }
+  }
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.inner}>
@@ -37,12 +47,19 @@ export default function Navbar() {
           <li><NavLink to="/category/women" className={({ isActive }) => isActive ? styles.active : ''}>Women</NavLink></li>
           <li><NavLink to="/category/accessories" className={({ isActive }) => isActive ? styles.active : ''}>Accessories</NavLink></li>
           <li><NavLink to="/category/shoes" className={({ isActive }) => isActive ? styles.active : ''}>Shoes</NavLink></li>
+          <li><NavLink to="/category/electronics" className={({ isActive }) => isActive ? styles.active : ''}>Electronics</NavLink></li>
         </ul>
         <div className={styles.actions}>
-          <div className={styles.searchBar}>
+          <form className={styles.searchBar} onSubmit={handleSearch} role="search">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input type="text" placeholder="Search products..." />
-          </div>
+            <input
+              type="search"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              aria-label="Search products"
+            />
+          </form>
 
           {user ? (
             <div className={styles.userMenu} ref={menuRef}>

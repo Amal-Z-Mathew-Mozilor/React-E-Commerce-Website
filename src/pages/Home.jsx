@@ -29,15 +29,22 @@ const categories = [
     cat: 'shoes',
     apiCategory: 'shoes',
   },
+  {
+    name: 'Electronics',
+    img: 'https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=800&q=80',
+    cat: 'electronics',
+    apiCategory: 'electronics',
+  },
 ]
 
-const TABS = ['All', 'Men', 'Women', 'Accessories', 'Shoes']
+const TABS = ['All', 'Men', 'Women', 'Accessories', 'Shoes', 'Electronics']
 const CAT_MAP = {
   All: null,
   Men: "men's clothing",
   Women: "women's clothing",
   Accessories: 'jewelery',
   Shoes: 'shoes',
+  Electronics: 'electronics',
 }
 
 export default function Home() {

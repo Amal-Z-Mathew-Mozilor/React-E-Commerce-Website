@@ -252,3 +252,23 @@
 .shopBtn:hover {
   background: var(--primary-dark);
 }
+
+.itemVariant {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.itemVariant span {
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: #f3f4f6;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+}
+
+.qtyControl button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

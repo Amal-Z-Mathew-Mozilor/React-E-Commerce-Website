@@ -55,10 +55,15 @@ export default function ProductDetail() {
     .toUpperCase()
 
   const handleAddToCart = () => {
-    addToCart(product, 1)
+    addToCart(
+      { ...product, selectedColor, selectedSize },
+      1
+    )
     setAdded(true)
     setTimeout(() => setAdded(false), 1800)
   }
+
+  const canAddToCart = selectedColor && selectedSize
 
   return (
     <div className={styles.page}>
@@ -135,7 +140,19 @@ export default function ProductDetail() {
 
           {/* Actions */}
           <div className={styles.actions}>
-            <button className={styles.addToCartBtn} onClick={handleAddToCart}>
+            {!canAddToCart && (
+              <p className={styles.selectHint}>
+                {!selectedColor && !selectedSize
+                  ? 'Please select a color and size'
+                  : !selectedColor ? 'Please select a color'
+                  : 'Please select a size'}
+              </p>
+            )}
+            <button
+              className={styles.addToCartBtn}
+              onClick={handleAddToCart}
+              disabled={!canAddToCart}
+            >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
                 <line x1="3" y1="6" x2="21" y2="6"/>

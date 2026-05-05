@@ -315,3 +315,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+.selectHint {
+  font-size: 0.8rem;
+  color: #f59e0b;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.addToCartBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}

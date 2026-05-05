@@ -1,19 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { useCart } from '../context/CartContext'
 import styles from './ProductCard.module.css'
 
 export default function ProductCard({ product }) {
-  const { addToCart } = useCart()
+  const navigate = useNavigate()
   const [isWished, setIsWished] = useState(false)
-  const [added, setAdded] = useState(false)
-
-  const handleAdd = () => {
-    addToCart(product, 1)
-    setAdded(true)
-    setTimeout(() => setAdded(false), 1500)
-  }
 
   const discountPercent = product.originalPrice
     ? Math.round((1 - product.price / product.originalPrice) * 100)
@@ -43,10 +35,14 @@ export default function ProductCard({ product }) {
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </button>
+        {/* Navigate to product detail so user can pick color + size */}
         <div className={styles.addToCartOverlay}>
-          <button className={styles.addBtn} onClick={(e) => { e.preventDefault(); handleAdd() }}>
+          <button
+            className={styles.addBtn}
+            onClick={(e) => { e.preventDefault(); navigate(`/product/${product.id}`) }}
+          >
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            {added ? 'Added!' : 'Add to Cart'}
+            Select Options
           </button>
         </div>
       </Link>
@@ -62,6 +58,17 @@ export default function ProductCard({ product }) {
       </div>
     </div>
   )
+}
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    category: PropTypes.string,
+    originalPrice: PropTypes.number,
+  }).isRequired,
 }
 
 ProductCard.propTypes = {

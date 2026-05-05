@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
+import { useCart, cartKey } from '../context/CartContext'
 import styles from './CartDrawer.module.css'
 
 export default function CartDrawer() {
@@ -26,37 +26,48 @@ export default function CartDrawer() {
               <p>Your cart is empty</p>
             </div>
           ) : (
-            cartItems.map(item => (
-              <div key={item.id} className={styles.item}>
-                <div className={styles.itemImg}>
-                  <img src={item.image} alt={item.title} />
-                </div>
-                <div className={styles.itemInfo}>
-                  <p className={styles.itemTitle}>{item.title}</p>
-                  <p className={styles.itemPrice}>${item.price.toFixed(2)}</p>
-                  <div className={styles.qtyRow}>
-                    <button
-                      className={styles.qtyBtn}
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      aria-label="Decrease quantity"
-                    >−</button>
-                    <span className={styles.qty}>{item.quantity}</span>
-                    <button
-                      className={styles.qtyBtn}
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      aria-label="Increase quantity"
-                    >+</button>
+            cartItems.map(item => {
+              const key = cartKey(item)
+              return (
+                <div key={key} className={styles.item}>
+                  <div className={styles.itemImg}>
+                    <img src={item.image} alt={item.title} />
                   </div>
+                  <div className={styles.itemInfo}>
+                    <p className={styles.itemTitle}>{item.title}</p>
+                    {(item.selectedColor || item.selectedSize) && (
+                      <p className={styles.itemVariant}>
+                        {item.selectedColor && <span>{item.selectedColor}</span>}
+                        {item.selectedSize && <span>{item.selectedSize}</span>}
+                      </p>
+                    )}
+                    <p className={styles.itemPrice}>${item.price.toFixed(2)}</p>
+                    <div className={styles.qtyRow}>
+                      {/* Fix 6: disabled at qty=1 */}
+                      <button
+                        className={styles.qtyBtn}
+                        onClick={() => updateQuantity(key, item.quantity - 1)}
+                        disabled={item.quantity <= 1}
+                        aria-label="Decrease quantity"
+                      >−</button>
+                      <span className={styles.qty}>{item.quantity}</span>
+                      <button
+                        className={styles.qtyBtn}
+                        onClick={() => updateQuantity(key, item.quantity + 1)}
+                        aria-label="Increase quantity"
+                      >+</button>
+                    </div>
+                  </div>
+                  <button
+                    className={styles.removeBtn}
+                    onClick={() => removeFromCart(key)}
+                    aria-label="Remove item"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </button>
                 </div>
-                <button
-                  className={styles.removeBtn}
-                  onClick={() => removeFromCart(item.id)}
-                  aria-label="Remove item"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </button>
-              </div>
-            ))
+              )
+            })
           )}
         </div>
 
@@ -76,7 +87,7 @@ export default function CartDrawer() {
                 <span>${subtotal.toFixed(2)}</span>
               </div>
             </div>
-            <button className={styles.checkoutBtn} onClick={() => { setIsCartOpen(false); navigate('/cart') }}>Proceed to Checkout</button>
+            <button className={styles.checkoutBtn} onClick={() => { setIsCartOpen(false); navigate('/checkout') }}>Proceed to Checkout</button>
             <button className={styles.continueBtn} onClick={() => setIsCartOpen(false)}>
               Continue Shopping
             </button>

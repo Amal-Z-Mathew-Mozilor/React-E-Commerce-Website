@@ -86,3 +86,11 @@
   padding: 4rem 0;
   color: var(--red);
 }
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 3rem 0;
+  font-size: 0.95rem;
+}
