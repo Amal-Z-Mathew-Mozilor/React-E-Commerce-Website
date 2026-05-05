@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import styles from './Checkout.module.css'
 
 export default function Checkout() {
-  // ✅ Single useCart call — all needed values destructured at once
   const { cartItems, subtotal, clearCart } = useCart()
   const { user } = useAuth()
   const navigate = useNavigate()

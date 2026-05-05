@@ -34,7 +34,6 @@ export default function ProductDetail() {
     )
   }
 
-  // Use product's own extras if it's a custom shoe, otherwise use category defaults
   const extras = product.colors
     ? { colors: product.colors, sizes: product.sizes, features: product.features }
     : PRODUCT_EXTRAS[product.category] || PRODUCT_EXTRAS["men's clothing"]

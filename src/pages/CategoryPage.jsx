@@ -11,7 +11,6 @@ const CATEGORY_CONFIG = {
   shoes: { label: 'Shoes', apiCategory: 'shoes' },
   electronics: { label: 'Electronics', apiCategory: 'electronics' },
 }
-
 export default function CategoryPage() {
   const { category } = useParams()
   const navigate = useNavigate()

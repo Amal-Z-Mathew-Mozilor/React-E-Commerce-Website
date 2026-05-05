@@ -13,26 +13,22 @@ function getStoredCart() {
   }
 }
 
-// Fix 1: composite key so same product in different color/size = separate cart lines
 export function cartKey(item) {
   return `${item.id}__${item.selectedColor || ''}__${item.selectedSize || ''}`
 }
 
 export function CartProvider({ children }) {
-  // Fix 5: hydrate from localStorage on mount
   const [cartItems, setCartItems] = useState(getStoredCart)
   const [isCartOpen, setIsCartOpen] = useState(false)
 
-  // Fix 5: persist cart on every change
   useEffect(() => {
     try {
       localStorage.setItem(CART_KEY, JSON.stringify(cartItems))
     } catch {
-      // storage full or unavailable
     }
   }, [cartItems])
 
-  // Fix 1: deduplication by composite key (id + color + size)
+
   const addToCart = useCallback((product, quantity = 1) => {
     setCartItems(prev => {
       const key = cartKey(product)
@@ -51,7 +47,6 @@ export function CartProvider({ children }) {
     setCartItems(prev => prev.filter(i => cartKey(i) !== key))
   }, [])
 
-  // Fix 6: quantity can never go below 1 here; UI disables minus at qty=1
   const updateQuantity = useCallback((key, quantity) => {
     if (quantity < 1) return
     setCartItems(prev =>
@@ -61,7 +56,6 @@ export function CartProvider({ children }) {
 
   const clearCart = useCallback(() => setCartItems([]), [])
 
-  // Fix 8: useMemo on value object so consumers don't re-render on every parent render
   const value = useMemo(() => {
     const totalItems = cartItems.reduce((sum, i) => sum + i.quantity, 0)
     const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0)
