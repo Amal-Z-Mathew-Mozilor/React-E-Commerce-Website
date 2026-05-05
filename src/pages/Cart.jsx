@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart, cartKey } from '../context/CartContext'
-import { useCart } from '../context/CartContext'
 import styles from './Cart.module.css'
 
 export default function Cart() {

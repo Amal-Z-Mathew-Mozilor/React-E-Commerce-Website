@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart, cartKey } from '../context/CartContext'
-
-import { useCart } from '../context/CartContext'
-
 import { useAuth } from '../context/AuthContext'
+import PropTypes from 'prop-types'
 import styles from './Checkout.module.css'
 
 export default function Checkout() {
-  const { cartItems, subtotal, setIsCartOpen } = useCart()
+  // ✅ Single useCart call — all needed values destructured at once
+  const { cartItems, subtotal, clearCart } = useCart()
   const { user } = useAuth()
   const navigate = useNavigate()
 
@@ -30,7 +29,6 @@ export default function Checkout() {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [ordered, setOrdered] = useState(false)
-  const { clearCart } = useCart()
 
   const shipping = subtotal >= 50 ? 0 : 9.99
   const tax = subtotal * 0.08
@@ -38,18 +36,14 @@ export default function Checkout() {
 
   const handleChange = (field) => (e) => {
     let val = e.target.value
-    // Auto-format card number: groups of 4
     if (field === 'cardNumber') {
       val = val.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim()
     }
-    // Auto-format expiry MM/YY
     if (field === 'expiry') {
       val = val.replace(/\D/g, '').slice(0, 4)
       if (val.length >= 3) val = val.slice(0, 2) + '/' + val.slice(2)
     }
-    // CVV max 3 digits
     if (field === 'cvv') val = val.replace(/\D/g, '').slice(0, 3)
-
     setForm(prev => ({ ...prev, [field]: val }))
     setErrors(prev => ({ ...prev, [field]: '' }))
   }
@@ -133,7 +127,6 @@ export default function Checkout() {
 
   return (
     <div className={styles.page}>
-      {/* Back */}
       <button className={styles.backBtn} onClick={() => navigate(-1)}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
           <path d="M19 12H5M12 5l-7 7 7 7"/>
@@ -145,10 +138,7 @@ export default function Checkout() {
 
       <form onSubmit={handleSubmit} noValidate>
         <div className={styles.layout}>
-          {/* ── Left: Forms ── */}
           <div className={styles.forms}>
-
-            {/* Shipping */}
             <div className={styles.section}>
               <h2>Shipping Information</h2>
               <div className={styles.row2}>
@@ -181,7 +171,6 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* Payment */}
             <div className={styles.section}>
               <h2>Payment Information</h2>
               <Field label="Card Number" error={errors.cardNumber}>
@@ -205,7 +194,6 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* Trust badges */}
             <div className={styles.trustRow}>
               {[
                 { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>, label: 'Secure Payment' },
@@ -224,12 +212,9 @@ export default function Checkout() {
           <div className={styles.summary}>
             <h2>Order Summary</h2>
             <div className={styles.summaryItems}>
+              {/* ✅ Single div with composite key */}
               {cartItems.map(item => (
-<<<<<<< HEAD
                 <div key={cartKey(item)} className={styles.summaryItem}>
-=======
-                <div key={item.id} className={styles.summaryItem}>
->>>>>>> 82863db21fd6ccabcb9330a0c82a939c366b8d52
                   <img src={item.image} alt={item.title} />
                   <div className={styles.summaryItemInfo}>
                     <p>{item.title}</p>
@@ -257,10 +242,7 @@ export default function Checkout() {
               </div>
             </div>
             <button type="submit" className={styles.placeOrderBtn} disabled={loading}>
-              {loading
-                ? <span className={styles.btnSpinner} />
-                : 'Place Order'
-              }
+              {loading ? <span className={styles.btnSpinner} /> : 'Place Order'}
             </button>
             <p className={styles.termsNote}>By placing your order, you agree to our <a href="#">Terms & Conditions</a></p>
           </div>
@@ -270,7 +252,7 @@ export default function Checkout() {
   )
 }
 
-// Small helper component for form fields
+// ✅ PropTypes import at top of file — Field component defined cleanly below
 function Field({ label, error, children }) {
   return (
     <div className={styles.field}>
@@ -283,7 +265,6 @@ function Field({ label, error, children }) {
   )
 }
 
-import PropTypes from 'prop-types'
 Field.propTypes = {
   label: PropTypes.string.isRequired,
   error: PropTypes.string,

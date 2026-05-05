@@ -61,14 +61,6 @@ export function CartProvider({ children }) {
 
   const clearCart = useCallback(() => setCartItems([]), [])
 
-  const clearCart = useCallback(() => {
-    setCartItems([])
-  }, [])
-
-  const totalItems = cartItems.reduce((sum, i) => sum + i.quantity, 0)
-  const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0)
-
-
   // Fix 8: useMemo on value object so consumers don't re-render on every parent render
   const value = useMemo(() => {
     const totalItems = cartItems.reduce((sum, i) => sum + i.quantity, 0)
